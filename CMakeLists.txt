@@ -1,22 +1,22 @@
 # Outcome cmake
 # (C) 2016-2020 Niall Douglas <http://www.nedproductions.biz/>
 # File Created: June 2016
-# 
-# 
+#
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License in the accompanying file
 # Licence.txt or at
-# 
+#
 #     http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
-# 
+#
+#
 # Distributed under the Boost Software License, Version 1.0.
 #     (See accompanying file Licence.txt or copy at
 #           http://www.boost.org/LICENSE_1_0.txt)
@@ -37,6 +37,7 @@ project(outcome VERSION ${VERSIONSTRING} LANGUAGES C CXX)
 set(PROJECT_NAMESPACE)
 
 # Setup this cmake environment for this project
+set(default_build_type "Release")
 include(QuickCppLibSetupProject)
 
 set(UNIT_TESTS_CXX_VERSION "latest" CACHE STRING "The version of C++ to use in the unit tests")
@@ -142,7 +143,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test" AND NOT PROJECT_IS_DEPENDENCY)
     "outcome_hl--result-int-int-2"
   )
   include(QuickCppLibMakeStandardTests)
-  
+
   # Enable Coroutines for the coroutines support test
   foreach(target ${outcome_TEST_TARGETS})
     if(${target} MATCHES "coroutine-support")
@@ -153,7 +154,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test" AND NOT PROJECT_IS_DEPENDENCY)
       target_compile_options(${target} PRIVATE /permissive-)
     endif()
   endforeach()
-  
+
   # Duplicate all tests into C++ exceptions disabled forms
   set(noexcept_tests)
   set(first_test_target_noexcept)
@@ -226,7 +227,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test" AND NOT PROJECT_IS_DEPENDENCY)
   endforeach()
   add_custom_target(${PROJECT_NAME}-noexcept COMMENT "Building all tests with C++ exceptions disabled ...")
   add_dependencies(${PROJECT_NAME}-noexcept ${noexcept_tests})
-  
+
   # Turn on latest C++ where possible for the test suite
   if(UNIT_TESTS_CXX_VERSION STREQUAL "latest")
     set(LATEST_CXX_FEATURE)
@@ -264,7 +265,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test" AND NOT PROJECT_IS_DEPENDENCY)
       target_compile_features(${test_target} PUBLIC ${LATEST_CXX_FEATURE})
     endforeach()
   endif()
-  
+
   # Add in the documentation snippets
   foreach(feature ${CMAKE_CXX_COMPILE_FEATURES})
     if(feature STREQUAL cxx_std_17)
