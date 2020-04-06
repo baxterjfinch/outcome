@@ -67,7 +67,7 @@ if(NOT PROJECT_IS_DEPENDENCY)
 endif()
 # Find my library dependencies
 find_quickcpplib_library(quickcpplib
-  GIT_REPOSITORY "https://github.com/ned14/quickcpplib.git"
+  GIT_REPOSITORY "https://github.com/baxterjfinch/quickcpplib-1.git
   REQUIRED
   IS_HEADER_ONLY
 )
